@@ -24,12 +24,17 @@ class AdaptiveLearningAgent:
                 sources,
                 topic
             )
-
+        
+        # Predict future learning gaps
+        predicted_gaps = predict_learning_gaps(
+            self.learner_state.get_state()
+        )
         # Step 2: Jeff decides the next learning action
         next_action = choose_next_action(
             analysis,
             self.learner_state.get_state(),
-            question
+            question,
+            predicted_gaps
         )
 
         # Step 3: Save the student's learning progress

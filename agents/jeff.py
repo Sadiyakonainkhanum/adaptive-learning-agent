@@ -1,4 +1,9 @@
-def choose_next_action(analysis, learner_state=None, question=None):
+def choose_next_action(
+    analysis,
+    learner_state=None,
+    question=None,
+    predicted_gaps=None
+):
     """
     Jeff is the decision layer.
 
@@ -15,6 +20,14 @@ def choose_next_action(analysis, learner_state=None, question=None):
     if learner_state:
         history = learner_state.get("history", [])
 
+    if predicted_gaps is None:
+        predicted_gaps = []
+
+    # If a future gap is predicted, prepare practice for it
+    if predicted_gaps and understanding == "Good":
+        return "Give practice"
+    
+    
     # If the student already understood it, move forward
     if understanding == "Good":
         return "Continue"
