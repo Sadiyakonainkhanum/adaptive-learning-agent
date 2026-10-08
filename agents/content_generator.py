@@ -1,7 +1,7 @@
 from agents.agnes_client import ask_agnes
 
 
-def generate_learning_content(question, analysis, next_action):
+def generate_learning_content(question, analysis, next_action, trusted_information=None):
     prompt = f"""
 You are an adaptive learning tutor.
 
@@ -13,6 +13,9 @@ Student performance analysis:
 
 Next learning action:
 {next_action}
+
+Trusted information:
+{trusted_information}
 
 Based on the student's performance, provide the appropriate learning content.
 

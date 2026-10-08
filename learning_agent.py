@@ -3,18 +3,27 @@ from agents.jeff import choose_next_action
 from agents.content_generator import generate_learning_content
 from agents.learner_state import LearnerState
 from agents.gap_predictor import predict_learning_gaps
+from agents.knowledge_validator import validate_knowledge
 
 
 class AdaptiveLearningAgent:
     def __init__(self):
         self.learner_state = LearnerState()
 
-    def process_answer(self, question, student_answer):
+    def process_answer(self, question, student_answer, sources=None, topic=None):
         # Step 1: Analyze the student's answer
         analysis = analyze_performance(
             question,
             student_answer
         )
+        
+        knowledge_validation = None
+
+        if sources and topic:
+            knowledge_validation = validate_knowledge(
+                sources,
+                topic
+            )
 
         # Step 2: Jeff decides the next learning action
         next_action = choose_next_action(
@@ -38,7 +47,10 @@ class AdaptiveLearningAgent:
         content = generate_learning_content(
             question,
             analysis,
-            next_action
+            next_action,
+            knowledge_validation["trusted_information"]
+            if knowledge_validation
+            else None
         )
 
         # Step 5: Get the student's current learning state
@@ -49,5 +61,6 @@ class AdaptiveLearningAgent:
             "next_action": next_action,
             "content": content,
             "learner_state": state,
-            "predicted_gaps": predicted_gaps
+            "predicted_gaps": predicted_gaps,
+            "knowledge_validation": knowledge_validation
         }
