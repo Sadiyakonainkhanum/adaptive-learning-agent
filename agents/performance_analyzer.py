@@ -1,4 +1,5 @@
 from agents.agnes_client import ask_agnes
+import json
 
 
 def analyze_performance(question, student_answer):
@@ -13,14 +14,20 @@ Question:
 Student answer:
 {student_answer}
 
-Return your analysis in exactly this format:
+Return ONLY valid JSON.
+Do not use markdown.
+Do not add explanations outside the JSON.
 
-Understanding: [Good / Partial / Poor]
-Missing concept: [short description]
-Difficulty: [Easy / Medium / Hard]
-Recommended action: [Continue / Explain concept / Teach prerequisite / Give practice]
+Use exactly these keys:
 
-Be concise and focus only on the student's learning needs.
+{{
+    "understanding": "Good, Partial, or Poor",
+    "missing_concept": "short description",
+    "difficulty": "Easy, Medium, or Hard",
+    "recommended_action": "Continue, Explain concept, Teach prerequisite, or Give practice"
+}}
 """
 
-    return ask_agnes(prompt)
+    result = ask_agnes(prompt)
+
+    return json.loads(result)
