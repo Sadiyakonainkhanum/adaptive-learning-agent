@@ -1,35 +1,38 @@
-from learning_agent import run_learning_agent
+from learning_agent import AdaptiveLearningAgent
 
 
-test_cases = [
-    {
-        "question": "What is the role of chlorophyll in photosynthesis?",
-        "answer": "Chlorophyll makes plants green."
-    },
-    {
-        "question": "What is the role of chlorophyll in photosynthesis?",
-        "answer": "Chlorophyll absorbs light energy and helps convert it into chemical energy."
-    }
-]
+agent = AdaptiveLearningAgent()
 
 
-for i, test in enumerate(test_cases, 1):
+print("========== ATTEMPT 1 ==========")
 
-    print(f"\n========== TEST {i} ==========")
+question = "What is the role of chlorophyll in photosynthesis?"
 
-    result = run_learning_agent(
-        test["question"],
-        test["answer"]
-    )
+answer1 = "Chlorophyll makes plants green."
 
-    print("\nStudent answer:")
-    print(test["answer"])
+result1 = agent.process_answer(question, answer1)
 
-    print("\nAnalysis:")
-    print(result["analysis"])
+print("\nAnalysis:")
+print(result1["analysis"])
 
-    print("\nJeff's Decision:")
-    print(result["next_action"])
+print("\nJeff's Decision:")
+print(result1["next_action"])
 
-    print("\nAgnes Generated Content:")
-    print(result["content"])
+print("\nLearner State:")
+print(result1["learner_state"])
+
+
+print("\n========== ATTEMPT 2 ==========")
+
+answer2 = "Chlorophyll absorbs light energy."
+
+result2 = agent.process_answer(question, answer2)
+
+print("\nAnalysis:")
+print(result2["analysis"])
+
+print("\nJeff's Decision:")
+print(result2["next_action"])
+
+print("\nLearner State:")
+print(result2["learner_state"])
