@@ -20,6 +20,8 @@ print(result1["next_action"])
 
 print("\nLearner State:")
 print(result1["learner_state"])
+print("\nPredicted Gaps:")
+print(result1["predicted_gaps"])
 
 
 print("\n========== ATTEMPT 2 ==========")
@@ -36,3 +38,5 @@ print(result2["next_action"])
 
 print("\nLearner State:")
 print(result2["learner_state"])
+print("\nPredicted Gaps:")
+print(result2["predicted_gaps"])

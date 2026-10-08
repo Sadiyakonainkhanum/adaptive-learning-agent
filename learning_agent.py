@@ -2,6 +2,7 @@ from agents.performance_analyzer import analyze_performance
 from agents.jeff import choose_next_action
 from agents.content_generator import generate_learning_content
 from agents.learner_state import LearnerState
+from agents.gap_predictor import predict_learning_gaps
 
 
 class AdaptiveLearningAgent:
@@ -29,6 +30,9 @@ class AdaptiveLearningAgent:
             analysis,
             next_action
         )
+        predicted_gaps = predict_learning_gaps(
+            self.learner_state.get_state()
+        )
 
         # Step 4: Agnes generates adaptive learning content
         content = generate_learning_content(
@@ -44,5 +48,6 @@ class AdaptiveLearningAgent:
             "analysis": analysis,
             "next_action": next_action,
             "content": content,
-            "learner_state": state
+            "learner_state": state,
+            "predicted_gaps": predicted_gaps
         }
